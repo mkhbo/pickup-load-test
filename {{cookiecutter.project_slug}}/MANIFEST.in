@@ -1,0 +1,11 @@
+recursive-exclude tests *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+graft sagemaker 
+graft glue 
+graft snowflake
+graft python 
+graft databricks
+graft airflow
+
+recursive-include docs *.rst conf.py Makefile make.bat *.jpg *.png *.gif

@@ -1,0 +1,16 @@
+db_details:
+  DEV:
+    snowflake_db_name: "MAX_DEV"
+    snowflake_environment_name: "sf_max_dev"
+    snowflake_etl_role: "MAX_ETL_DEV"
+    snowflake_warehouse_name: "MAX_DATASCIENCE_DEV"
+  BETA:
+    snowflake_db_name: "MAX_BETA"
+    snowflake_environment_name: "sf_max_beta"
+    snowflake_etl_role: "MAX_ETL_BETA"
+    snowflake_warehouse_name: "MAX_DATASCIENCE_BETA"
+  PROD:
+    snowflake_db_name: "MAX_PROD"
+    snowflake_environment_name: "sf_max_prod"
+    snowflake_etl_role: "MAX_ETL_PROD"
+    snowflake_warehouse_name: "MAX_DATASCIENCE_PROD"

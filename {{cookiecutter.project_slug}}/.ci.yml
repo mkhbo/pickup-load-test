@@ -1,0 +1,11 @@
+pipeline_template: models/Jenkinsfile
+agent_label: master
+script_to_run: test
+s3_snapshot_bucket: max-ml-artifacts-snapshots
+s3_release_bucket: max-ml-artifacts-releases
+maven_snapshot_repo: max-pypi-snapshots-internal
+maven_release_repo: max-pypi-releases-internal
+slack_channel: dapaiops-test
+{% if cookiecutter.databricks_profile != 'false' -%}
+databricks_profile: {{ cookiecutter.databricks_profile }}
+{%- endif %}

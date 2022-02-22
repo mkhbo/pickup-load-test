@@ -1,0 +1,13 @@
+{
+  "email": "karthikraj.kanagaraj@wmcontractor.com",
+  "project_name": "hello_world",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "airflow": "airflow",
+  "glue": "glue",
+  "sagemaker": "sagemaker",
+  "snowflake": "snowflake",
+  "python": "python",
+  "databricks": "databricks",
+  "tests": "tests",
+  "databricks_profile": ["false", "general", "sensitive", "restricted", "subscription-restricted"]
+}
