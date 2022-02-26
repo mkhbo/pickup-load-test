@@ -1,0 +1,24 @@
+{
+    "productCode":"hboMax",
+    "profiles":[
+        "profile1",
+        "profile2",
+        "profile3",
+        "profile4"
+    ],
+    "assets":{
+        "features":[
+            "feature1",
+            "feature2",
+            "feature3",
+            "feature4"
+        ],
+        "series":{
+            "series1":"series1:episode2",
+            "series2":"series2:episode1"
+        } 
+    },
+    "updateTimeStart":1592962207,
+    "updateTimeEnd":1592962400,
+    "recordsPerUser":6
+}

@@ -1,0 +1,10 @@
+{
+    "prof":{
+        "ComparisonOperator":"EQ",
+        "AttributeValueList": [{"S": "LT55b4e50f58b641cc:hboMax"}]
+    },
+    "parent":{
+        "ComparisonOperator":"EQ",
+        "AttributeValueList": [{"S": "urn:hbo:feature:GYboqSQGt_6XCwwEAAAJM"}]
+    }
+}

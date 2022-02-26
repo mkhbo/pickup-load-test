@@ -1,0 +1,29 @@
+{
+    "prof": {
+     "S": "LT55b4e50f58b641cc:hboMax"
+    },
+    "parent": {
+     "S": "urn:hbo:feature:GYboqSQGt_6XCwwEAAAJM"
+    },
+    "aws:rep:deleting": {
+     "BOOL": false
+    },
+    "showcw": {
+     "BOOL": true
+    },
+    "time": {
+     "N": "1589218383203"
+    },
+    "aws:rep:updateregion": {
+     "S": "us-west-2"
+    },
+    "aws:rep:updatetime": {
+     "N": "1589324525.532003"
+    },
+    "asset": {
+     "NULL": true
+    },
+    "done": {
+     "BOOL": false
+    }
+   }
