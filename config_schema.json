@@ -1,0 +1,62 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "PickupLoadTest",
+    "description": "Config for Pickup Load Test",
+    "type": "object",
+    "properties": {
+      "productCode": {
+        "description": "The unique identifier for a product",
+        "type": "string",
+        "required":true
+      },
+      "hurleyUserIds": {
+        "description": "Array of Hurley User IDs",
+        "type": "array",
+        "items": {
+            "type":"string"
+        },
+        "minItems":1,
+        "uniqueItems":true,
+        "required":true
+      },
+      "assets": {
+        "description": "Assets associated with this load test",
+        "type": "object",
+        "properties":{
+            "features":{
+                "descriptions":"assets of type features listed in an array",
+                "type":"array",
+                "items":{
+                    "type":"string"
+                },
+                "minItems":1,
+                "uniqueItems":true,
+                "required":true
+            },
+            "series":{
+                "type":"object",
+                "description":"key, value pair of assetID of a series to assetID of an episode from it",
+                "items":{
+                    "type":"string"
+                }
+            }
+        },
+        "required":true
+      },
+      "updateTimeStart":{
+          "type":"number",
+          "required":true
+      },
+      "updateTimeEnd":{
+          "type":"number",
+          "required":true
+      },
+      "recordsPerUser":{
+          "type":"number",
+          "required":true
+      },
+      "batch_size":{
+          "type":"number"
+      }
+    }
+}

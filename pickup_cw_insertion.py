@@ -14,7 +14,7 @@ DDB_RESOURCE_STRING = 'dynamodb'
 DDB_SNP_ENDPOINT = 'us-west-2'
 TABLE_NAME = 'pickup-cw-snp'
 PUT_REQUEST = 'PutRequest'
-BATCH_SIZE = 10
+BATCH_SIZE = 25
 LOG_FILE_NAME = 'runtime'
 EXCEPTION_THRESHOLD = 5
 
@@ -28,7 +28,7 @@ logger.addHandler(fileHandler)
 logger.setLevel(logging.INFO)
 
 # util function to get records by profile and parent
-def get_record(ddb_client=None, prof, parent):
+def get_record(prof, parent,ddb_client=None):
     if not ddb_client:
         ddb_client = boto3.resource(DDB_RESOURCE_STRING, DDB_SNP_ENDPOINT)
     table = ddb_client.Table(TABLE_NAME)
@@ -52,7 +52,7 @@ def generate_asset():
 def generate_item():
     start_time = int(config['updateTimeStart'])
     end_time = int(config['updateTimeEnd'])
-    users = config['profiles']
+    users = config['hurleyUserIds']
     for user in users:
         for unique_asset in generate_asset():
             item = {}
@@ -98,14 +98,14 @@ def main():
     # PHASE 2 : To give the program a better capability
     # we can include retry on unprocessed items
     # using async tasks
-
+    print('starting ingestion...')
     batch_number = 0
     item_generator = generate_item()
     total_records_generated = 0
     run_loop = True
     exception_count = 0
     
-    while run_loop and total_records_generated < (len(config['profiles'])*config['recordsPerUser']):
+    while run_loop and total_records_generated < (len(config['hurleyUserIds'])*config['recordsPerUser']):
         
         try:
             # STEP 1 : create a batch request
@@ -133,4 +133,6 @@ def main():
         
         # STEP 3 : loop invariant
         total_records_generated += BATCH_SIZE
+    print('ingestion ended, please check logs for more details...')
+
 main()
