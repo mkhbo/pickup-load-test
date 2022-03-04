@@ -1,11 +1,12 @@
 # simple script for generating config for pickup_cw_insertion
 import sys
 import time
-from random import randint
+from random import randint, SystemRandom
 from math import log, ceil, inf
 import hashlib
 from pprint import pprint
 import json
+import string
 
 def valid_int(i,s=0,e=inf):
     try:
@@ -27,38 +28,28 @@ def calc_bytes_needed(n):
         return 1
     return int(log(n, 256)) + 1
 
-def generate_user_id(num_users,num_bytes):
-    randNum = randint(0, num_users)
-    randNumBytes = randNum.to_bytes(num_bytes, sys.byteorder)
-    m = hashlib.sha256(randNumBytes)
-    return "PICKUP-LT-" + m.hexdigest()[0:16]
+def generate_user_id(num_users):
+    return "PICKUP-LT-" + ''.join(SystemRandom().choice(string.ascii_uppercase +string.ascii_lowercase+ string.digits) for _ in range(16))
 
 def generate_asset_id(type="feature"):
-    return 'urn:'+type+':'+''.join([get_rand_char() for _ in range(21)])
+    return 'urn:hbo:'+type+':'+''.join([get_rand_char() for _ in range(21)])
 
 # function for generating random profile IDs for load testing
 def get_user_array(num_users):
     num_bytes = calc_bytes_needed(num_users)
     return [
-        generate_user_id(num_users, num_bytes) for _ in range(num_users)
+        generate_user_id(num_users) for _ in range(num_users)
     ]
 
 # we need to have a unique asset per record, so we will
 # have atleast as many assets as the number of records
 # that need to be generated
 def get_asset_dict(num_assets):
-    # 70% features, 30% episodes
-    num_features = ceil(0.7*num_assets)
-    num_episodes = ceil(0.3*num_assets)
     features = [
-        generate_asset_id() for _ in range(num_features)
+        generate_asset_id() for _ in range(num_assets)
     ]
-    series = {
-        generate_asset_id('series'):generate_asset_id('episode') for _ in range(num_episodes)
-    }
     return {
-        "features":features,
-        "series":series
+        "features":features
     }
 
 # by default generate num_users records for a duration of 90 days
@@ -66,7 +57,7 @@ def generate_config(num_users, duration, records_per_user):
     config = {}
     config['productCode'] =  PRODUCT_CODE
     config['hurleyUserIds'] = get_user_array(num_users)
-    config['assets'] = get_asset_dict(num_users*records_per_user)
+    config['assets'] = get_asset_dict(records_per_user)
     end_time = int(time.time())
     config['updateTimeStart'] = end_time-(duration*24*3600)
     config['updateTimeEnd'] = end_time

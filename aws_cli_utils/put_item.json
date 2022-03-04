@@ -1,29 +1,29 @@
 {
     "prof": {
-     "S": "LT55b4e50f58b641cc:hboMax"
+      "S": "PICKUP-LT-4bf5122f344554c5:hboMax"
     },
     "parent": {
-     "S": "urn:hbo:feature:GYboqSQGt_6XCwwEAAAJM"
-    },
-    "aws:rep:deleting": {
-     "BOOL": false
+      "S": "urn:hbo:series:JoxEMipJTOfRqNOJzFgMu"
     },
     "showcw": {
-     "BOOL": true
+      "BOOL": true
+    },
+    "runtime": {
+      "N": "3584"
+    },
+    "ttl": {
+      "N": "1677828170"
     },
     "time": {
-     "N": "1589218383203"
+      "N": "1646271216901"
     },
-    "aws:rep:updateregion": {
-     "S": "us-west-2"
-    },
-    "aws:rep:updatetime": {
-     "N": "1589324525.532003"
+    "position": {
+      "N": "818"
     },
     "asset": {
-     "NULL": true
+      "S": "urn:hbo:episode:JoxEYbttoWXogjbXlcRSX"
     },
     "done": {
-     "BOOL": false
+      "BOOL": false
     }
-   }
+  }

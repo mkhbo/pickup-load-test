@@ -32,13 +32,6 @@
                 "minItems":1,
                 "uniqueItems":true,
                 "required":true
-            },
-            "series":{
-                "type":"object",
-                "description":"key, value pair of assetID of a series to assetID of an episode from it",
-                "items":{
-                    "type":"string"
-                }
             }
         },
         "required":true

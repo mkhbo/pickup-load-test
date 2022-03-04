@@ -20,7 +20,7 @@ EXCEPTION_THRESHOLD = 5
 
 client = boto3.client(DDB_RESOURCE_STRING, DDB_SNP_ENDPOINT)
 
-logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
+logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] {%(pathname)s:%(lineno)d} [%(levelname)-5.5s]  %(message)s")
 logger = logging.getLogger(__name__)
 fileHandler = logging.FileHandler("{0}.log".format(LOG_FILE_NAME), mode='w')
 fileHandler.setFormatter(logFormatter)
@@ -45,32 +45,28 @@ def get_record(prof, parent,ddb_client=None):
 def generate_asset():
     for feature in config['assets']['features']:
         yield feature
-    for series, episode in config['assets']['series'].items():
-        yield (series, episode)
-
+    
 # generator for generating an item
 def generate_item():
     start_time = int(config['updateTimeStart'])
     end_time = int(config['updateTimeEnd'])
     users = config['hurleyUserIds']
+    product_code = config['productCode']
     for user in users:
         for unique_asset in generate_asset():
             item = {}
             item['PutRequest'] = {}
             item['PutRequest']['Item'] = {
-                    "prof": {"S":user},
-                    "parent": {"S":unique_asset[0] if len(unique_asset)==2 else unique_asset},
-                    "aws:rep:deleting": {"BOOL":False},
+                    "prof": {"S":user+':'+product_code},
+                    "parent": {"S":unique_asset},
+                    "asset":{"NULL":True},
                     "showcw": {"BOOL":True},
-                    "time": {"N":str(time.time())},
-                    "aws:rep:updateregion": {"S":"us-west-2"},
-                    "aws:rep:updatetime": {"N":str(randrange(start_time, end_time))+"."+str(randrange(500000,600000))},
+                    "runtime":{"N":str(randrange(5000,8000))},
+                    "ttl":{"N":str(int(time.time())+2*365*24*3600)}, # 2 years from now
+                    "time": {"N":str(round(time.time() * 1000))},
+                    "position":{"N":str(randrange(500,1000))},
                     "done": {"BOOL":False}
-                }            
-            if len(unique_asset)==2:
-                item['PutRequest']['Item']['asset'] = {"S":unique_asset[1]}
-            else:
-                item['PutRequest']['Item']['asset'] = {"NULL": True}
+                }
             yield item
 
 def log_request_response(batch_id, request, response):
@@ -104,35 +100,35 @@ def main():
     total_records_generated = 0
     run_loop = True
     exception_count = 0
-    
-    while run_loop and total_records_generated < (len(config['hurleyUserIds'])*config['recordsPerUser']):
-        
+    total_record_count = len(config['hurleyUserIds'])*config['recordsPerUser']
+    current_record_count = 0
+
+    while run_loop and current_record_count < total_record_count:
         try:
             # STEP 1 : create a batch request
             logger.info('creating next batch of records')
             next_batch_of_items = []
+            remaining_record_count = total_record_count-current_record_count
             try:
-                for _ in range(BATCH_SIZE):
+                for _ in range(min(remaining_record_count,BATCH_SIZE)):
                     next_batch_of_items.append(next(item_generator))
             except StopIteration as e:
                 # incomplete batch
                 pass
-            
+           
             # STEP 2: make batch request and log response
             response = make_batch_call(next_batch_of_items)
             log_request_response(batch_number+1, next_batch_of_items, response)
-
         except Exception as e:
             exception_count += 1
             logger.error('exception count : {0}'.format(exception_count))
             logger.error(e)
             if exception_count == EXCEPTION_THRESHOLD:
                 run_loop = False
-        
+            print('encountered exception in ingestion, please check logs for more details...')
         batch_number+=1
         
         # STEP 3 : loop invariant
-        total_records_generated += BATCH_SIZE
-    print('ingestion ended, please check logs for more details...')
+        current_record_count += BATCH_SIZE
 
 main()

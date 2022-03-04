@@ -1,0 +1,20 @@
+{
+    "testParameters": {
+        "testDescription": "Load testing for pickup continue watching",
+        "productCode": "hboMax",
+        "deviceCode": "desktop",
+        "environment": "snp",
+        "templateUserId": "STAGINGTEST_pickup_automated_tests",
+        "additionalTokenPropertyData": {
+                "clientId": "585b02c8-dbe1-432f-b1bb-11cf670fbeb0",
+                "deviceSerialNumber": "1ae0a9ad-39a5-40ec-fcb5-f8006d6ec52a",
+                "affiliateCode": "hbo_max_ott",
+                "userId": "PICKUP-LT-4bf5122f344554c5",
+                "hurleyAccountId": "PICKUP-LT-4bf5122f344554c5",
+                "hurleyProfileId": "PICKUP-LT-4bf5122f344554c5",
+                "streamTrackingId": "PICKUP-LT-4bf5122f344554c5",
+                "homeServicesPartition": "snp",
+                "market":"us"
+            }
+    }
+}
