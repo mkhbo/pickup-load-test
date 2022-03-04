@@ -20,8 +20,8 @@ MAX_RECORDS_PER_USER = 1000 # assuming a binge user can only watch 1000 movies/e
 MAX_NUM_DAYS = 365*5
 CONFIG_FILE_NAME = 'config.json'
 
-def get_rand_char():
-    return chr(randint(97,122)) if randint(0,1) else chr(randint(65,90))
+def get_rand_str(length):
+    return ''.join(SystemRandom().choice(string.ascii_uppercase +string.ascii_lowercase+ string.digits) for _ in range(length))
 
 def calc_bytes_needed(n):
     if n == 0:
@@ -29,14 +29,13 @@ def calc_bytes_needed(n):
     return int(log(n, 256)) + 1
 
 def generate_user_id(num_users):
-    return "PICKUP-LT-" + ''.join(SystemRandom().choice(string.ascii_uppercase +string.ascii_lowercase+ string.digits) for _ in range(16))
+    return "PICKUP-LT-" + get_rand_str(16)
 
 def generate_asset_id(type="feature"):
-    return 'urn:hbo:'+type+':'+''.join([get_rand_char() for _ in range(21)])
+    return 'urn:hbo:'+type+':'+get_rand_str(21)
 
 # function for generating random profile IDs for load testing
 def get_user_array(num_users):
-    num_bytes = calc_bytes_needed(num_users)
     return [
         generate_user_id(num_users) for _ in range(num_users)
     ]
