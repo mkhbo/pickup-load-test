@@ -1,0 +1,2 @@
+Method,Name,Error,Occurrences
+GET,/continuewatchinghistory,Status = 502,1

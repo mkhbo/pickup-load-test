@@ -1,0 +1,18 @@
+Count,Message,Traceback,Nodes
+1,"[Errno Expecting value] <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+</body>
+</html>
+: 0","  File ""/Users/mkalra/Documents/pickup-load-test/env/lib/python3.9/site-packages/locust/user/task.py"", line 309, in run
+    self.execute_next_task()
+  File ""/Users/mkalra/Documents/pickup-load-test/env/lib/python3.9/site-packages/locust/user/task.py"", line 334, in execute_next_task
+    self.execute_task(self._task_queue.pop(0))
+  File ""/Users/mkalra/Documents/pickup-load-test/env/lib/python3.9/site-packages/locust/user/task.py"", line 447, in execute_task
+    task(self.user)
+  File ""/Users/mkalra/Documents/pickup-load-test/loadtest.py"", line 55, in get_continue_watching_history
+    print(len(r.json()['continueWatching']))
+  File ""/Users/mkalra/Documents/pickup-load-test/env/lib/python3.9/site-packages/requests/models.py"", line 917, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+",local
