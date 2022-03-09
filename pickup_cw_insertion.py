@@ -5,7 +5,7 @@ from boto3.dynamodb.conditions import Key
 from collections import defaultdict
 import json
 from decimal import *
-from random import randrange
+from random import randrange, randint
 import time
 import logging
 from config_reader import config
@@ -48,8 +48,8 @@ def generate_asset():
     
 # generator for generating an item
 def generate_item():
-    start_time = int(config['updateTimeStart'])
-    end_time = int(config['updateTimeEnd'])
+    start = int(config['updateTimeStart'])
+    end = int(config['updateTimeEnd'])
     users = config['hurleyUserIds']
     product_code = config['productCode']
     for user in users:
@@ -63,7 +63,7 @@ def generate_item():
                     "showcw": {"BOOL":True},
                     "runtime":{"N":str(randrange(5000,8000))},
                     "ttl":{"N":str(int(time.time())+2*365*24*3600)}, # 2 years from now
-                    "time": {"N":str(round(time.time() * 1000))},
+                    "time": {"N":str(randint(start,end)) + str(randint(100,999))}, # we want this in milliseconds
                     "position":{"N":str(randrange(500,1000))},
                     "done": {"BOOL":False}
                 }
@@ -130,5 +130,5 @@ def main():
         
         # STEP 3 : loop invariant
         current_record_count += BATCH_SIZE
-
+    
 main()

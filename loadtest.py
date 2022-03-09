@@ -52,5 +52,5 @@ class PickupUser(HttpUser):
         with self.client.get("/continuewatchinghistory", headers={"Authorization": self.token}, timeout=REQUEST_TIMEOUT_SEC, catch_response=True) as r:
             if r.status_code != 200:
                 r.failure(f"Status = {r.status_code}")
-            # print(r.json())
-
+            # uncomment to check the length of continueWatching array 
+            # print(len(r.json()['continueWatching']))
