@@ -51,7 +51,7 @@ This is a typical python installation.
 > 	python config_generator.py <no_of_users> <no_of_days> <no_of_records_per_user>
 - *no_of_users* - number of users to run the load test for
 - *no_of_days* - number of days from today into past for creating fake markers. Default : 90 days.
-- *no_of_records_per_user* - number of records to be generated for each user. This records will be uniformly distributed in the time range [now, now-no_of_days]
+- *no_of_records_per_user* - number of records to be generated for each user. This records will be uniformly distributed in the time range [now, now-no_of_days] Default: no_of_days/7 - 1 asset per week
 > 
 > You can also list down profileIDs you want  to insert markers for (for
 > eg: your SNP profileID) or assets that you want the users to have
