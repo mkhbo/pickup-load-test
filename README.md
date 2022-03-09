@@ -81,8 +81,8 @@ Press the stop button in top right corner to stop locust from firing requests. (
 
 ----
 ### References
-- Pickup Design 
-- Locust Documentation 
-- DynamoDB SDK Documentation 
-- Pickup API Documentation
+- [Pickup Design](https://wiki.hbo.com/display/DevP/ContinueWatching+for+HboMax#ContinueWatchingforHboMax-DevProposal) 
+- [Locust Documentation](https://docs.locust.io/en/stable/what-is-locust.html) 
+- [DynamoDB SDK Documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.html) 
+- [Pickup API Documentation](https://docbot.hurley.hbo.com/go/pkg/github.com/HBOCodeLabs/apiclients/pickup/)
 ---
